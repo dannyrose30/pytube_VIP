@@ -15,6 +15,7 @@ def returnNumberOfKeyFrames(link: str):
 
 
 def Download(link: str, id: str, outpath: str = "./"):
+    "Downloads Youtube video"
     youtubeObject = YouTube(link)
     youtubeObject = youtubeObject.streams.get_highest_resolution()
     try:
@@ -25,6 +26,7 @@ def Download(link: str, id: str, outpath: str = "./"):
 
 
 def getYoutubeID(code: str):
+    "Given identifying code, determines corresponding Youtube id"
     cmd = f"curl http://data.yt8m.org/2/j/i/{code[0:2]}/{code}.js"
     args = shlex.split(cmd)
     process = subprocess.Popen(
@@ -39,9 +41,7 @@ def getYoutubeID(code: str):
 
 
 def getVidsandCategories(start: int, end: int, record="./train00.tfrecord"):
-    """Choose which training file to process
-    Returns list of videos
-    """
+    """Returns list of videos for a specified training record"""
     vid_ids = []
     labels = []
 
@@ -55,7 +55,9 @@ def getVidsandCategories(start: int, end: int, record="./train00.tfrecord"):
         labels.append(seq_example.features.feature["labels"].int64_list.value)
     print(len(vid_ids))
 
-    vocabulary = pd.read_csv("/data4/ersp2022/videos/vocabulary.csv")
+    vocabulary = pd.read_csv(
+        "./vocabulary.csv"
+    )  # Path to vocabulary.csv from YouTube8m
     vocabulary.set_index("Index", inplace=True)
 
     ids_labels = []
@@ -80,7 +82,8 @@ def getVidsandCategories(start: int, end: int, record="./train00.tfrecord"):
 
 def removeCategories(videosAndCategories: list):
     """
-    Takes in a list of video ids (in YouTube format) as well as categories it fits into. Returns a pruned list of only good ones
+    Takes in a list of two elements, the first being the YouTube video id and the second being the categories it fits into (according to vocabulary.csv).
+    Prunes these videos according to which categories empirically have good/bad visual content.
     """
     finalList = []
     # goodCategories = ["Autos & Vehicles", "Food & Drink", "Hobbies & Leisure", "Travel"]
@@ -131,6 +134,9 @@ def removeCategories(videosAndCategories: list):
 def downloadVideos(
     start: int, end: int, downloadPath: str, record="./train00.tfrecord"
 ):
+    """Downloads all videos from a given training record (removing ones with undesireable visual content)
+    "start" is which video in the training record to start from, and "end" is where to end
+    """
     vids = getVidsandCategories(start=start, end=end, record=record)
     print(vids)
     finalVideos = removeCategories(vids)
@@ -148,18 +154,15 @@ def downloadVideos(
 
 
 def main():
-    # files = ["trainad.tfrecord","trainDC.tfrecord","trainOG.tfrecord","trainOK.tfrecord","trainpj.tfrecord","trainXY.tfrecord",]
-    for file in os.listdir("/data4/ersp2022/videos/finalTrain"):
+    for file in os.listdir(
+        "/data4/ersp2022/videos/train"
+    ):  # Specify path to training records
         downloadVideos(
             start=0,
             end=0,
-            downloadPath="/data4/ersp2022/videos/VIPvideos/",
-            record=f"/data4/ersp2022/videos/finalTrain/{file}",
+            downloadPath="/data4/ersp2022/videos/VIPvideos/",  # Specify path in which to download videos
+            record=f"/data4/ersp2022/videos/train/{file}",
         )
-    # # getVidsandCategories(1000, 1005, record = "/data4/ersp2022/videos//trainWB.tfrecord")
-    # print(returnNumberOfKeyFrames("https://www.youtube.com/watch?v=AugoGXy1dZo"))
-    # print(os.listdir("/data4/ersp2022/videos/trialvideos"))
-    print(returnNumberOfKeyFrames("https://www.youtube.com/watch?v=JXQr8MoAuXI"))
 
 
 if __name__ == "__main__":
