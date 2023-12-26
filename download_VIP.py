@@ -142,7 +142,7 @@ def downloadVideos(
     finalVideos = removeCategories(vids)
     print(finalVideos)
     for video in finalVideos:
-        if not os.path.exists(f"/data4/ersp2022/videos/VIPvideos/{video[0]}.mp4"):
+        if not os.path.exists(f"{downloadPath}/{video[0]}.mp4"):
             try:
                 Download(
                     f"https://www.youtube.com/watch?v={video[0]}",
@@ -158,7 +158,7 @@ def main():
         downloadVideos(
             start=0,
             end=0,
-            downloadPath="/data4/ersp2022/videos/VIPvideos/",  # Specify path in which to download videos
+            downloadPath="/data4/ersp2022/videos/VIPvideos",  # Specify path in which to download videos
             record=f"/data4/ersp2022/videos/train/{file}",
         )
 
