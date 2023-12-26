@@ -154,12 +154,14 @@ def downloadVideos(
 
 
 def main():
-    for file in os.listdir("./train"):  # Specify path to training records
+    train_record_path = "/data4/ersp2022/videos/train" # Specify path to training records
+    download_path = /data4/ersp2022/videos/VIPvideos # Specify path in which to download videos
+    for file in os.listdir(train_record_path):  
         downloadVideos(
             start=0,
             end=0,
-            downloadPath="/data4/ersp2022/videos/VIPvideos",  # Specify path in which to download videos
-            record=f"/data4/ersp2022/videos/train/{file}",
+            downloadPath=download_path,  
+            record=f"{train_record_path}/{file}",
         )
 
 
