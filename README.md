@@ -1,3 +1,7 @@
+VIP Notes:
+- The files added for VIP are download_VIP.csv (used to download videos), vocabulary_VIP.csv (the file provided by YouTube8m to associate videos with their content categories), and the train_VIP/ directory with an example training file train00.tfrecord with available videos in the YouTube8m corpus
+- More training records can be downloaded at: http://us.data.yt8m.org/2/video/train/index.html
+
 <div align="center">
   <p>
     <a href="#"><img src="https://assets.nickficano.com/gh-pytube.min.svg" width="456" height="143" alt="pytube logo" /></a>
