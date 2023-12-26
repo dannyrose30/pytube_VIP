@@ -154,9 +154,7 @@ def downloadVideos(
 
 
 def main():
-    for file in os.listdir(
-        "/data4/ersp2022/videos/train"
-    ):  # Specify path to training records
+    for file in os.listdir("./train"):  # Specify path to training records
         downloadVideos(
             start=0,
             end=0,
