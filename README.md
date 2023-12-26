@@ -1,9 +1,17 @@
 # VIP Notes:
-- The files added for VIP are download_VIP.csv (used to download videos), vocabulary_VIP.csv (the file provided by YouTube8m to associate videos with their content categories), and the train_VIP/ directory with an example training file train00.tfrecord with available videos in the YouTube8m corpus
-- More training records can be downloaded at: http://us.data.yt8m.org/2/video/train/index.html
+New files added for VIP:
+- download_VIP.csv (used to download videos)
+- vocabulary_VIP.csv (the file provided by YouTube8m to associate videos with their content categories)
+- train_VIP/ directory with an example training file train00.tfrecord with available videos in the YouTube8m corpus.
+
+More training records can be downloaded at: http://us.data.yt8m.org/2/video/train/index.html
+
+Details on how to edit with paths:
+- Specify <a href="https://github.com/dannyrose30/pytube_VIP/blob/8cf35ba082ded351a406cc313d1572b35b42108b/download_VIP.py#L157">path</a> to training records 
+- Specify <a href="https://github.com/dannyrose30/pytube_VIP/blob/8cf35ba082ded351a406cc313d1572b35b42108b/download_VIP.py#L158
+">path</a> to download videos 
 
 <br>
-
 <div align="center">
   <p>
     <a href="#"><img src="https://assets.nickficano.com/gh-pytube.min.svg" width="456" height="143" alt="pytube logo" /></a>
